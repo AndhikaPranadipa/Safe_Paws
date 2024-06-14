@@ -37,7 +37,7 @@ public class Shelter implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("roleShelter"));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_SHELTER"));
     }
 
     @Override

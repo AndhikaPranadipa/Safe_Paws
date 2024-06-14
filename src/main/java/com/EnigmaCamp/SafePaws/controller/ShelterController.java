@@ -4,13 +4,14 @@ import com.EnigmaCamp.SafePaws.utils.dto.Res;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/shelter")
-//@PreAuthorize("hasRole('roleShelter')")
+@PreAuthorize("hasRole('SHELTER')")
 @AllArgsConstructor
 public class ShelterController {
 
@@ -19,6 +20,6 @@ public class ShelterController {
 
         String result = "hello";
 
-        return Res.renderJson(result, "Customer registered successfully", HttpStatus.CREATED);
+        return Res.renderJson(result, "Hello Shelter", HttpStatus.CREATED);
     }
 }

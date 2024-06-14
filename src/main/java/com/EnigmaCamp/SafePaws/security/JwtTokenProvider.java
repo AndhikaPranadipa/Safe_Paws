@@ -25,13 +25,10 @@ public class JwtTokenProvider {
 
     public SecretKey getSigningKey(){
         byte[] decodedKey = Base64.getDecoder().decode(jwtSignatureSecret);
-
-        // Construct SecretKey from byte array
         return new SecretKeySpec(decodedKey, 0, decodedKey.length, "HmacSHA256");
     }
 
     public String createToken(String email, List<String> roles) {
-
         Map<String, Object> claims = new HashMap<>();
         claims.put("roles", roles);
         claims.put("email", email);
@@ -39,12 +36,7 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder()
-                .claims(claims)
-                .setSubject(email)
-                .issuedAt(now)
-                .expiration(validity)
-                .signWith(getSigningKey())
+        return Jwts.builder().claims(claims).setSubject(email).issuedAt(now).expiration(validity).signWith(getSigningKey())
                 .compact();
     }
 
@@ -54,21 +46,14 @@ public class JwtTokenProvider {
     }
 
     public String getEmail(String token) {
-        return Jwts.parser()
-                .setSigningKey(jwtSignatureSecret)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
+        return Jwts.parser().setSigningKey(jwtSignatureSecret).build().parseClaimsJws(token).getBody()
                 .get("email", String.class);
     }
 
     public boolean validateToken(String token) {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(jwtSignatureSecret).build().parseClaimsJws(token);
-            return !claims
-                    .getPayload()
-                    .getExpiration()
-                    .before(new Date());
+            return !claims.getPayload().getExpiration().before(new Date());
         } catch (IllegalArgumentException e) {
             System.out.println("JWT claims string is empty: " + e.getMessage());
         } catch (JwtException e) {

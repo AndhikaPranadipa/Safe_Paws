@@ -4,13 +4,14 @@ import com.EnigmaCamp.SafePaws.utils.dto.Res;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/animal")
-//@PreAuthorize("hasAnyRole('roleCustomer', 'roleShelter')")
+@PreAuthorize("hasAnyRole('CUSTOMER', 'SHELTER')")
 @AllArgsConstructor
 public class AnimalController {
 
@@ -19,6 +20,6 @@ public class AnimalController {
 
         String result = "hello";
 
-        return Res.renderJson(result, "Customer registered successfully", HttpStatus.CREATED);
+        return Res.renderJson(result, "Cek Animal", HttpStatus.CREATED);
     }
 }

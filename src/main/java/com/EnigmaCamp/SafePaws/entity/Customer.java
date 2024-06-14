@@ -36,7 +36,7 @@ public class Customer implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("roleCustomer"));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
     }
 
     @Override

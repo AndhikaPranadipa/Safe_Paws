@@ -5,12 +5,12 @@ import com.EnigmaCamp.SafePaws.entity.Shelter;
 import com.EnigmaCamp.SafePaws.repository.CustomerRepository;
 import com.EnigmaCamp.SafePaws.repository.ShelterRepository;
 import com.EnigmaCamp.SafePaws.security.JwtTokenProvider;
-import com.EnigmaCamp.SafePaws.security.JwtUtils;
 import com.EnigmaCamp.SafePaws.service.AuthService;
 import com.EnigmaCamp.SafePaws.utils.dto.request.CustomerDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.request.ShelterDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -19,6 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -48,8 +49,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Customer registerCustomer(CustomerDTO request) {
         if (customerRepository.existsByEmail(request.getEmail())){
-            //  Lempar Error
-            return null;
+            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "sudah ada");
         }
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         return customerRepository.saveAndFlush(request.toEntity());
@@ -58,8 +58,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Shelter registerShelter(ShelterDTO request) {
         if (shelterRepository.existsByEmail(request.getEmail())){
-            //  Lempar Error
-            return null;
+            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "sudah ada");
         }
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         return shelterRepository.saveAndFlush(request.toEntity());
@@ -72,7 +71,11 @@ public class AuthServiceImpl implements AuthService {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return jwtTokenProvider.createToken(username, getAuthorisList(authentication));
+        try {
+            return jwtTokenProvider.createToken(username, getAuthorisList(authentication));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "login failed", e.getCause());
+        }
     }
 
     public List<String> getAuthorisList(Authentication authentication){
