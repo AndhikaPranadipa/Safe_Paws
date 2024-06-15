@@ -1,8 +1,10 @@
 package com.EnigmaCamp.SafePaws.security;
 
 import com.EnigmaCamp.SafePaws.service.impl.CustomUserDetailsService;
-import io.jsonwebtoken.*;
-import io.jsonwebtoken.security.Keys;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -36,7 +38,11 @@ public class JwtTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder().claims(claims).setSubject(email).issuedAt(now).expiration(validity).signWith(getSigningKey())
+        return Jwts.builder().claims(claims)
+                .setSubject(email)
+                .issuedAt(now)
+                .expiration(validity)
+                .signWith(getSigningKey())
                 .compact();
     }
 
@@ -46,7 +52,10 @@ public class JwtTokenProvider {
     }
 
     public String getEmail(String token) {
-        return Jwts.parser().setSigningKey(jwtSignatureSecret).build().parseClaimsJws(token).getBody()
+        return Jwts.parser().setSigningKey(jwtSignatureSecret)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
                 .get("email", String.class);
     }
 

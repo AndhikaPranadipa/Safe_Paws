@@ -1,14 +1,17 @@
 package com.EnigmaCamp.SafePaws.entity;
 
 import com.EnigmaCamp.SafePaws.utils.enums.AnimalStatus;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Entity
-@Table(name = "animal")
+@Table(name = "animals")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,5 +41,10 @@ public class Animal {
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     private Shelter shelter;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL)
+    private List<Adoption> adoptionList;
+
 
 }

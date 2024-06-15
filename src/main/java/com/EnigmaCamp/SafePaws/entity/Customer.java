@@ -1,5 +1,6 @@
 package com.EnigmaCamp.SafePaws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name = "customer")
+@Table(name = "customers")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -33,6 +34,14 @@ public class Customer implements UserDetails {
     private String password;
 
     private String phone;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<Adoption> adoptionList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<AddressCustomer> addressCustomerList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

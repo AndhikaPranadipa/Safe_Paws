@@ -2,7 +2,6 @@ package com.EnigmaCamp.SafePaws.utils.dto.request;
 
 import com.EnigmaCamp.SafePaws.entity.Customer;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @AllArgsConstructor
 @NoArgsConstructor

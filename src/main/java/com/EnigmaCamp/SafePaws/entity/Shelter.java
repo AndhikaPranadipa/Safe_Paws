@@ -1,5 +1,6 @@
 package com.EnigmaCamp.SafePaws.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name = "shelter")
+@Table(name = "shelters")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +35,14 @@ public class Shelter implements UserDetails {
     private String phone;
 
     private String description;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
+    private List<Animal> animalList;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
+    private List<AddressShelter> addressShelterList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
