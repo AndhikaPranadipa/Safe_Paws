@@ -9,6 +9,7 @@ import com.EnigmaCamp.SafePaws.utils.dto.request.AuthRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.request.UserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.request.ShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.response.AuthResponse;
+import com.EnigmaCamp.SafePaws.utils.dto.response.RegisterResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -27,19 +28,19 @@ public class AuthController {
     private final RestClientAddressService restClientAddressService;
 
     @PostMapping("/register-user")
-    public ResponseEntity<?> registerCustomer(@Valid @RequestBody UserDTO customer) {
+    public ResponseEntity<?> registerCustomer(@Valid @RequestBody UserDTO userDTO) {
 
-        User result = authService.registerCustomer(customer);
+        User user = authService.registerCustomer(userDTO);
 
-        return Res.renderJson(result, "User registered successfully", HttpStatus.CREATED);
+        return Res.renderJson(RegisterResponse.fromUser(user), "User registered successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/register-shelter")
-    public ResponseEntity<?> registerShelter(@Valid @RequestBody ShelterDTO shelter) {
+    public ResponseEntity<?> registerShelter(@Valid @RequestBody ShelterDTO shelterDTO) {
 
-        Shelter result = authService.registerShelter(shelter);
+        Shelter shelter = authService.registerShelter(shelterDTO);
 
-        return Res.renderJson(result, "Shelter registered successfully", HttpStatus.CREATED);
+        return Res.renderJson(RegisterResponse.fromShelter(shelter), "Shelter registered successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/login")
