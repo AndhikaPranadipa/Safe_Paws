@@ -1,8 +1,8 @@
 package com.EnigmaCamp.SafePaws.utils.dto.request;
 
-import com.EnigmaCamp.SafePaws.entity.AddressCustomer;
+import com.EnigmaCamp.SafePaws.entity.AddressUser;
 import com.EnigmaCamp.SafePaws.entity.City;
-import com.EnigmaCamp.SafePaws.entity.Customer;
+import com.EnigmaCamp.SafePaws.entity.User;
 import lombok.*;
 
 @AllArgsConstructor
@@ -10,15 +10,15 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class AddressCustomerDTO {
+public class AddressUserDTO {
 
     private String cityId;
 
     private String description;
 
-    public AddressCustomer toEntity(Customer reqCustomer, City reqCity) {
-        return AddressCustomer.builder()
-                .customer(reqCustomer)
+    public AddressUser toEntity(User reqUser, City reqCity) {
+        return AddressUser.builder()
+                .user(reqUser)
                 .city(reqCity)
                 .description(description)
                 .build();

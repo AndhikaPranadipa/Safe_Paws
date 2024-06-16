@@ -45,7 +45,7 @@ public class SecurityConfig {
                         request.dispatcherTypeMatchers(DispatcherType.ERROR).permitAll()
                                 .requestMatchers(
                                         "/api/auth/**",
-                                        "/api/customer/**",
+                                        "/api/user/**",
                                         "/api/shelter/**",
                                         "/api/animal/**",
                                         "/api/adoption/**").permitAll()

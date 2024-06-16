@@ -1,12 +1,12 @@
 package com.EnigmaCamp.SafePaws.service.impl;
 
-import com.EnigmaCamp.SafePaws.entity.Customer;
+import com.EnigmaCamp.SafePaws.entity.User;
 import com.EnigmaCamp.SafePaws.entity.Shelter;
-import com.EnigmaCamp.SafePaws.repository.CustomerRepository;
+import com.EnigmaCamp.SafePaws.repository.UserRepository;
 import com.EnigmaCamp.SafePaws.repository.ShelterRepository;
 import com.EnigmaCamp.SafePaws.security.JwtTokenProvider;
 import com.EnigmaCamp.SafePaws.service.AuthService;
-import com.EnigmaCamp.SafePaws.utils.dto.request.CustomerDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.request.UserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.request.ShelterDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
 public class AuthServiceImpl implements AuthService {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private ShelterRepository shelterRepository;
@@ -47,12 +47,12 @@ public class AuthServiceImpl implements AuthService {
     private CustomUserDetailsService userDetailsService;
 
     @Override
-    public Customer registerCustomer(CustomerDTO request) {
-        if (customerRepository.existsByEmail(request.getEmail())){
+    public User registerCustomer(UserDTO request) {
+        if (userRepository.existsByEmail(request.getEmail())){
             throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "sudah ada");
         }
         request.setPassword(passwordEncoder.encode(request.getPassword()));
-        return customerRepository.saveAndFlush(request.toEntity());
+        return userRepository.saveAndFlush(request.toEntity());
     }
 
     @Override
@@ -87,7 +87,6 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public UserDetails getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
 
         return (UserDetails) authentication.getPrincipal();
     }

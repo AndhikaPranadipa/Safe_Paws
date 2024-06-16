@@ -15,12 +15,12 @@ import java.util.Collections;
 import java.util.List;
 
 @Entity
-@Table(name = "customers")
+@Table(name = "users")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Customer implements UserDetails {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -36,16 +36,16 @@ public class Customer implements UserDetails {
     private String phone;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Adoption> adoptionList;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<AddressCustomer> addressCustomerList;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<AddressUser> addressUserList;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority("ROLE_CUSTOMER"));
+        return Collections.singleton(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override

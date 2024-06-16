@@ -1,6 +1,6 @@
 package com.EnigmaCamp.SafePaws.utils.dto.request;
 
-import com.EnigmaCamp.SafePaws.entity.Customer;
+import com.EnigmaCamp.SafePaws.entity.User;
 import lombok.*;
 
 @AllArgsConstructor
@@ -8,7 +8,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class CustomerDTO {
+public class UserDTO {
 
     private String fullName;
 
@@ -18,8 +18,8 @@ public class CustomerDTO {
 
     private String phone;
 
-    public Customer toEntity() {
-        return Customer.builder()
+    public User toEntity() {
+        return User.builder()
                 .fullName(fullName)
                 .email(email)
                 .password(password)

@@ -1,15 +1,15 @@
 package com.EnigmaCamp.SafePaws.repository;
 
-import com.EnigmaCamp.SafePaws.entity.Customer;
+import com.EnigmaCamp.SafePaws.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, String> {
+public interface UserRepository extends JpaRepository<User, String> {
 
     boolean existsByEmail(String email);
 
-    Optional<Customer> findByEmail(String email);
+    Optional<User> findByEmail(String email);
 }

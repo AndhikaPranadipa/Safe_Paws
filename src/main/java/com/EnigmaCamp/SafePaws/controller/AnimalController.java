@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/animal")
-@PreAuthorize("hasAnyRole('CUSTOMER', 'SHELTER')")
+@PreAuthorize("hasAnyRole('USER', 'SHELTER')")
 @AllArgsConstructor
 public class AnimalController {
 

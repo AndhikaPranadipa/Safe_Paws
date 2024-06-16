@@ -33,5 +33,5 @@ public class City {
 
     @JsonIgnore
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    private List<AddressCustomer> addressCustomerList;
+    private List<AddressUser> addressUserList;
 }

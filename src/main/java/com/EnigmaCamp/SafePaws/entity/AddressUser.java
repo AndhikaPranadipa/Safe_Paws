@@ -7,20 +7,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "address_customer")
+@Table(name = "address_user")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class AddressCustomer {
+public class AddressUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @ManyToOne
-    @JoinColumn(name = "customer_id")
-    private Customer customer;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "city_id")

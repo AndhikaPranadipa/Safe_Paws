@@ -1,8 +1,8 @@
 package com.EnigmaCamp.SafePaws.service.impl;
 
-import com.EnigmaCamp.SafePaws.entity.Customer;
+import com.EnigmaCamp.SafePaws.entity.User;
 import com.EnigmaCamp.SafePaws.entity.Shelter;
-import com.EnigmaCamp.SafePaws.repository.CustomerRepository;
+import com.EnigmaCamp.SafePaws.repository.UserRepository;
 import com.EnigmaCamp.SafePaws.repository.ShelterRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,21 +16,21 @@ import java.util.Optional;
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private CustomerRepository customerRepository;
+    private UserRepository userRepository;
 
     @Autowired
     private ShelterRepository shelterRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Customer> customerUserOptional = customerRepository.findByEmail(email);
-        if (customerUserOptional.isPresent()) {
-            return customerUserOptional.get();
+        Optional<User> userOptional = userRepository.findByEmail(email);
+        if (userOptional.isPresent()) {
+            return userOptional.get();
         }
 
-        Optional<Shelter> shelterUserOptional = shelterRepository.findByEmail(email);
-        if (shelterUserOptional.isPresent()) {
-            return shelterUserOptional.get();
+        Optional<Shelter> shelterOptional = shelterRepository.findByEmail(email);
+        if (shelterOptional.isPresent()) {
+            return shelterOptional.get();
         }
 
         throw new UsernameNotFoundException("User with email " + email + " not found");

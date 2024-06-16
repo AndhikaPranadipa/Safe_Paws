@@ -33,5 +33,5 @@ public class Adoption {
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
-    private Customer customer;
+    private User user;
 }

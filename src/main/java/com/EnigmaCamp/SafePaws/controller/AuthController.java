@@ -1,12 +1,12 @@
 package com.EnigmaCamp.SafePaws.controller;
 
-import com.EnigmaCamp.SafePaws.entity.Customer;
+import com.EnigmaCamp.SafePaws.entity.User;
 import com.EnigmaCamp.SafePaws.entity.Shelter;
 import com.EnigmaCamp.SafePaws.service.AuthService;
 import com.EnigmaCamp.SafePaws.service.RestClientAddressService;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
 import com.EnigmaCamp.SafePaws.utils.dto.request.AuthRequest;
-import com.EnigmaCamp.SafePaws.utils.dto.request.CustomerDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.request.UserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.request.ShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.response.AuthResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -31,12 +31,12 @@ public class AuthController {
         return null;
     }
 
-    @PostMapping("/register-customer")
-    public ResponseEntity<?> registerCustomer(@RequestBody CustomerDTO customer) {
+    @PostMapping("/register-user")
+    public ResponseEntity<?> registerCustomer(@RequestBody UserDTO customer) {
 
-        Customer result = authService.registerCustomer(customer);
+        User result = authService.registerCustomer(customer);
 
-        return Res.renderJson(result, "Customer registered successfully", HttpStatus.CREATED);
+        return Res.renderJson(result, "User registered successfully", HttpStatus.CREATED);
     }
 
     @PostMapping("/register-shelter")
