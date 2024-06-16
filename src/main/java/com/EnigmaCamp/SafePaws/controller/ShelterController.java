@@ -4,6 +4,7 @@ import com.EnigmaCamp.SafePaws.entity.AddressShelter;
 import com.EnigmaCamp.SafePaws.service.AddressShelterService;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
 import com.EnigmaCamp.SafePaws.utils.dto.request.AddressShelterDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class ShelterController {
     }
 
     @PostMapping(path = "/address")
-    public ResponseEntity<?> setAddress(@RequestBody AddressShelterDTO request) {
+    public ResponseEntity<?> setAddress(@RequestBody AddressShelterDTO request) throws JsonProcessingException {
 
         AddressShelter result = addressShelterService.create(request);
 

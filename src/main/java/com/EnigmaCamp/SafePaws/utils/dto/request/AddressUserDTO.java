@@ -3,6 +3,7 @@ package com.EnigmaCamp.SafePaws.utils.dto.request;
 import com.EnigmaCamp.SafePaws.entity.AddressUser;
 import com.EnigmaCamp.SafePaws.entity.City;
 import com.EnigmaCamp.SafePaws.entity.User;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @AllArgsConstructor
@@ -12,6 +13,7 @@ import lombok.*;
 @Builder
 public class AddressUserDTO {
 
+    @NotBlank
     private String cityId;
 
     private String description;

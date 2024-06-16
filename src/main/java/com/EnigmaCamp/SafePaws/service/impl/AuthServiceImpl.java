@@ -49,7 +49,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public User registerCustomer(UserDTO request) {
         if (userRepository.existsByEmail(request.getEmail())){
-            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "sudah ada");
+            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "Email already used");
         }
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         return userRepository.saveAndFlush(request.toEntity());
@@ -58,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public Shelter registerShelter(ShelterDTO request) {
         if (shelterRepository.existsByEmail(request.getEmail())){
-            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "sudah ada");
+            throw new ResponseStatusException(HttpStatus.ALREADY_REPORTED, "Email already used");
         }
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         return shelterRepository.saveAndFlush(request.toEntity());

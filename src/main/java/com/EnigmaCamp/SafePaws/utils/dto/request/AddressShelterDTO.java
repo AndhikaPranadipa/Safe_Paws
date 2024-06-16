@@ -1,6 +1,7 @@
 package com.EnigmaCamp.SafePaws.utils.dto.request;
 
 import com.EnigmaCamp.SafePaws.entity.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
 @AllArgsConstructor
@@ -10,6 +11,7 @@ import lombok.*;
 @Builder
 public class AddressShelterDTO {
 
+    @NotBlank
     private String cityId;
 
     private String description;

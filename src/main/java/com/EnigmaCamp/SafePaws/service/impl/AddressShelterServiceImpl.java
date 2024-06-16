@@ -8,7 +8,9 @@ import com.EnigmaCamp.SafePaws.repository.CityRepository;
 import com.EnigmaCamp.SafePaws.repository.ShelterRepository;
 import com.EnigmaCamp.SafePaws.service.AddressShelterService;
 import com.EnigmaCamp.SafePaws.service.AuthService;
+import com.EnigmaCamp.SafePaws.service.RestClientAddressService;
 import com.EnigmaCamp.SafePaws.utils.dto.request.AddressShelterDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,15 +29,18 @@ public class AddressShelterServiceImpl implements AddressShelterService {
 
     private final CityRepository cityRepository;
 
+    private final RestClientAddressService restClientAddressService;
+
     @Override
-    public AddressShelter create(AddressShelterDTO request) {
+    public AddressShelter create(AddressShelterDTO request) throws JsonProcessingException {
+        restClientAddressService.fetch();
 
         UserDetails result = authService.getCurrentUser();
 
         Shelter shelter = shelterRepository.findByEmail(result.getUsername())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shelter Not Found"));
         City city = cityRepository.findById(request.getCityId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Not Found"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "City Not Found"));
 
         return addressShelterRepository.saveAndFlush(request.toEntity(shelter, city));
     }

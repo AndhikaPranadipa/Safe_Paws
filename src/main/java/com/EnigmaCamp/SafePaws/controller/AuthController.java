@@ -10,6 +10,7 @@ import com.EnigmaCamp.SafePaws.utils.dto.request.UserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.request.ShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.response.AuthResponse;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,14 +26,8 @@ public class AuthController {
 
     private final RestClientAddressService restClientAddressService;
 
-    @PostMapping("/get-city")
-    public ResponseEntity<?> registerCustomer() throws JsonProcessingException {
-        restClientAddressService.fetch(); // Ambil data city & province & save ke db
-        return null;
-    }
-
     @PostMapping("/register-user")
-    public ResponseEntity<?> registerCustomer(@RequestBody UserDTO customer) {
+    public ResponseEntity<?> registerCustomer(@Valid @RequestBody UserDTO customer) {
 
         User result = authService.registerCustomer(customer);
 
@@ -40,7 +35,7 @@ public class AuthController {
     }
 
     @PostMapping("/register-shelter")
-    public ResponseEntity<?> registerShelter(@RequestBody ShelterDTO shelter) {
+    public ResponseEntity<?> registerShelter(@Valid @RequestBody ShelterDTO shelter) {
 
         Shelter result = authService.registerShelter(shelter);
 
@@ -48,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticatecustomer(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> authenticatecustomer(@Valid @RequestBody AuthRequest authRequest) {
         String token = authService.authenticateUser(authRequest.getEmail(), authRequest.getPassword());
 
         AuthResponse result = new AuthResponse(token);

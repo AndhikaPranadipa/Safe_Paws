@@ -4,6 +4,7 @@ import com.EnigmaCamp.SafePaws.entity.AddressUser;
 import com.EnigmaCamp.SafePaws.service.AddressUserService;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
 import com.EnigmaCamp.SafePaws.utils.dto.request.AddressUserDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping(path = "/address")
-    public ResponseEntity<?> setAddress(@RequestBody AddressUserDTO request) {
+    public ResponseEntity<?> setAddress(@RequestBody AddressUserDTO request) throws JsonProcessingException {
 
         AddressUser result = addressUserService.create(request);
 
