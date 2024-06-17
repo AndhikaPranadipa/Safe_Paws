@@ -1,5 +1,6 @@
 package com.EnigmaCamp.SafePaws.utils.dto;
 
+import com.EnigmaCamp.SafePaws.entity.AddressShelter;
 import com.EnigmaCamp.SafePaws.entity.AddressUser;
 import com.EnigmaCamp.SafePaws.entity.City;
 import com.EnigmaCamp.SafePaws.entity.Province;
@@ -31,6 +32,16 @@ public class AddressResponse {
                 .province(province.getProvince())
                 .city(city.getCity())
                 .description(addressUser.getDescription())
+                .build();
+    }
+
+    public static AddressResponse toResponse(AddressShelter addressShelter, City city, Province province) {
+
+        return AddressResponse.builder()
+                .id(addressShelter.getId())
+                .province(province.getProvince())
+                .city(city.getCity())
+                .description(addressShelter.getDescription())
                 .build();
     }
 }

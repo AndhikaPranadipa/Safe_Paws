@@ -1,17 +1,12 @@
 package com.EnigmaCamp.SafePaws.controller;
 
-import com.EnigmaCamp.SafePaws.entity.AddressUser;
-import com.EnigmaCamp.SafePaws.entity.Province;
-import com.EnigmaCamp.SafePaws.entity.Shelter;
 import com.EnigmaCamp.SafePaws.entity.User;
 import com.EnigmaCamp.SafePaws.service.AddressUserService;
 import com.EnigmaCamp.SafePaws.service.UserService;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
-import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateShelterDTO;
-import com.EnigmaCamp.SafePaws.utils.dto.shelter.response.ShelterResponseDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
-import com.EnigmaCamp.SafePaws.utils.dto.user.request.DeleteAddressUserDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.DeleteAddressDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateAddressUserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateUserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.user.response.UserResponseDTO;
@@ -67,14 +62,14 @@ public class UserController {
 
         AddressResponse result = addressUserService.update(request);
 
-        return Res.renderJson(result, "Address user added successfully", HttpStatus.CREATED);
+        return Res.renderJson(result, "Address user edited successfully", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/address")
-    public ResponseEntity<?> delete(@RequestBody DeleteAddressUserDTO request) throws JsonProcessingException {
+    public ResponseEntity<?> delete(@RequestBody DeleteAddressDTO request) throws JsonProcessingException {
 
         addressUserService.delete(request);
 
-        return Res.renderJson(null, "Address user deleted successfully", HttpStatus.CREATED);
+        return Res.renderJson(null, "Address user deleted successfully", HttpStatus.OK);
     }
 }
