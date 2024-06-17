@@ -37,9 +37,9 @@ public class AdoptionServiceImpl implements AdoptionService {
                 .orElseThrow(() -> new RuntimeException("Animal not found"));
         
         LocalDate inspectionDays;
-        Optional<Adoption> latestAdoption = adoptionRepository.findFirstByOrderByInspectionDaysDesc();
+        Optional<Adoption> latestAdoption = adoptionRepository.findFirstByOrderByInspectionDateDesc();
         if (latestAdoption.isPresent()) {
-            inspectionDays = latestAdoption.get().getInspection_date().plusDays(1);
+            inspectionDays = latestAdoption.get().getInspectionDate().plusDays(1);
         } else {
             inspectionDays = LocalDate.now().plusDays(1);
         }
@@ -48,7 +48,7 @@ public class AdoptionServiceImpl implements AdoptionService {
                 .animal(animal)
                 .user(user)
                 .adoptionStatus(AdoptionStatus.PENDING)
-                .inspection_date(inspectionDays)
+                .inspectionDate(inspectionDays)
                 .build();
         
         Adoption saved = adoptionRepository.saveAndFlush(adoption);
@@ -69,7 +69,7 @@ public class AdoptionServiceImpl implements AdoptionService {
         adoption.setAdoptionStatus(newStatus);
 
         if (newStatus == AdoptionStatus.APPROVED) {
-            List<Adoption> pendingAdoptions = adoptionRepository.findByAnimalIdAndStatus(adoption.getAnimal().getId(), AdoptionStatus.PENDING);
+            List<Adoption> pendingAdoptions = adoptionRepository.findByAnimalIdAndAnimalAnimalStatus(adoption.getAnimal().getId(), AdoptionStatus.PENDING);
 
             for(Adoption pendingAdoption : pendingAdoptions) {
                 pendingAdoption.setAdoptionStatus(AdoptionStatus.REJECTED);

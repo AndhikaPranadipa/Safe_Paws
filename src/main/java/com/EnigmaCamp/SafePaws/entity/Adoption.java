@@ -21,7 +21,8 @@ public class Adoption {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private LocalDate inspection_date;
+    @Column(name = "inspection_date")
+    private LocalDate inspectionDate;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "adoption_status")

@@ -12,8 +12,8 @@ import com.EnigmaCamp.SafePaws.utils.enums.AdoptionStatus;
 
 @Repository
 public interface AdoptionRepository extends JpaRepository<Adoption, String>, JpaSpecificationExecutor<Adoption> {
-    List<Adoption> findByAnimalIdAndStatus(String animalId, AdoptionStatus status);
+    List<Adoption> findByAnimalIdAndAnimalAnimalStatus(String animalId, AdoptionStatus status);
     
-    Optional<Adoption> findFirstByOrderByInspectionDaysDesc();
+    Optional<Adoption> findFirstByOrderByInspectionDateDesc();
 
 }
