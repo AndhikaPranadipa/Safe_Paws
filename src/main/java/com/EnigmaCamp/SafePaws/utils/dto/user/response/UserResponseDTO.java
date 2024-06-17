@@ -1,7 +1,5 @@
-package com.EnigmaCamp.SafePaws.utils.dto.response;
+package com.EnigmaCamp.SafePaws.utils.dto.user.response;
 
-import com.EnigmaCamp.SafePaws.entity.AddressUser;
-import com.EnigmaCamp.SafePaws.entity.City;
 import com.EnigmaCamp.SafePaws.entity.User;
 import lombok.Builder;
 import lombok.Data;
@@ -10,20 +8,21 @@ import lombok.Data;
 @Builder
 public class UserResponseDTO {
 
+    private String id;
+
     private String fullName;
 
     private String email;
 
     private String phone;
 
-    private City city;
 
-    public static UserResponseDTO fromUser(User user, AddressUser addressUser){
+    public static UserResponseDTO fromUser(User user){
         return UserResponseDTO.builder()
+                .id(user.getId())
                 .fullName(user.getFullName())
                 .email(user.getEmail())
                 .phone(user.getPhone())
-                .city(addressUser.getCity())
                 .build();
     }
 }

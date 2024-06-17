@@ -1,9 +1,16 @@
 package com.EnigmaCamp.SafePaws.controller;
 
 import com.EnigmaCamp.SafePaws.entity.AddressUser;
+import com.EnigmaCamp.SafePaws.entity.Shelter;
+import com.EnigmaCamp.SafePaws.entity.User;
 import com.EnigmaCamp.SafePaws.service.AddressUserService;
+import com.EnigmaCamp.SafePaws.service.UserService;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
-import com.EnigmaCamp.SafePaws.utils.dto.request.AddressUserDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateShelterDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.shelter.response.ShelterResponseDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateUserDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.user.response.UserResponseDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,12 +26,18 @@ public class UserController {
 
     private final AddressUserService addressUserService;
 
+    private final UserService userService;
+
     @GetMapping
-    public ResponseEntity<?> hello() {
+    public ResponseEntity<?> getCurrentUser() {
+        User user = userService.getByJWT();
+        return Res.renderJson(UserResponseDTO.fromUser(user), "OK", HttpStatus.ACCEPTED);
+    }
 
-        String result = "hello";
-
-        return Res.renderJson(result, "Hello anda User", HttpStatus.CREATED);
+    @PutMapping
+    public ResponseEntity<?> updateUser(@RequestBody UpdateUserDTO request) {
+        User user = userService.updateUser(request);
+        return Res.renderJson(UserResponseDTO.fromUser(user), "OK", HttpStatus.OK);
     }
 
     @PostMapping(path = "/address")

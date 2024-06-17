@@ -35,11 +35,9 @@ public class User implements UserDetails {
 
     private String phone;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Adoption> adoptionList;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<AddressUser> addressUserList;
 

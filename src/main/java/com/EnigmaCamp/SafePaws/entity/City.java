@@ -27,11 +27,9 @@ public class City {
     @JoinColumn(name = "province_id", nullable = false)
     private Province province;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<AddressShelter> addressShelterList;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private List<AddressUser> addressUserList;
 }

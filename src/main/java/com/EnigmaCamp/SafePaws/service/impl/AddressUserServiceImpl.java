@@ -9,7 +9,7 @@ import com.EnigmaCamp.SafePaws.repository.UserRepository;
 import com.EnigmaCamp.SafePaws.service.AddressUserService;
 import com.EnigmaCamp.SafePaws.service.AuthService;
 import com.EnigmaCamp.SafePaws.service.RestClientAddressService;
-import com.EnigmaCamp.SafePaws.utils.dto.request.AddressUserDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

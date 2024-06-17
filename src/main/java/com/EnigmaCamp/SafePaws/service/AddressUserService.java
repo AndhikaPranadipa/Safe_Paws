@@ -1,7 +1,7 @@
 package com.EnigmaCamp.SafePaws.service;
 
 import com.EnigmaCamp.SafePaws.entity.AddressUser;
-import com.EnigmaCamp.SafePaws.utils.dto.request.AddressUserDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 public interface AddressUserService {

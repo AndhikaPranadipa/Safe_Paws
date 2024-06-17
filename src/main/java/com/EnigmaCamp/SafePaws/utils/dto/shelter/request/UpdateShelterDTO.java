@@ -1,9 +1,8 @@
-package com.EnigmaCamp.SafePaws.utils.dto.request;
+package com.EnigmaCamp.SafePaws.utils.dto.shelter.request;
 
 import com.EnigmaCamp.SafePaws.entity.Shelter;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @AllArgsConstructor
@@ -11,14 +10,12 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class ShelterDTO {
+public class UpdateShelterDTO {
+    @NotBlank
+    private String id;
 
     @NotBlank
     private String name;
-
-    @NotBlank
-    @Email(message = "Invalid email address")
-    private String email;
 
     @NotBlank
     private String password;
@@ -29,8 +26,8 @@ public class ShelterDTO {
 
     public Shelter toEntity() {
         return Shelter.builder()
+                .id(id)
                 .name(name)
-                .email(email)
                 .password(password)
                 .phone(phone)
                 .description(description)

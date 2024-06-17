@@ -42,7 +42,6 @@ public class Animal {
     @JoinColumn(name = "shelter_id")
     private Shelter shelter;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "animal", cascade = CascadeType.ALL)
     private List<Adoption> adoptionList;
 

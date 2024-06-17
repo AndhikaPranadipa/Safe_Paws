@@ -5,17 +5,15 @@ import com.EnigmaCamp.SafePaws.entity.Shelter;
 import com.EnigmaCamp.SafePaws.service.AuthService;
 import com.EnigmaCamp.SafePaws.service.RestClientAddressService;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
-import com.EnigmaCamp.SafePaws.utils.dto.request.AuthRequest;
-import com.EnigmaCamp.SafePaws.utils.dto.request.UserDTO;
-import com.EnigmaCamp.SafePaws.utils.dto.request.ShelterDTO;
-import com.EnigmaCamp.SafePaws.utils.dto.response.AuthResponse;
-import com.EnigmaCamp.SafePaws.utils.dto.response.RegisterResponse;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.EnigmaCamp.SafePaws.utils.dto.security.request.AuthRequest;
+import com.EnigmaCamp.SafePaws.utils.dto.user.request.UserDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.ShelterDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.security.response.AuthResponse;
+import com.EnigmaCamp.SafePaws.utils.dto.security.response.RegisterResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -52,9 +50,9 @@ public class AuthController {
         return Res.renderJson(result, "Login successfully", HttpStatus.ACCEPTED);
     }
 
-    @GetMapping("/me")
-    public ResponseEntity<?> getCurrentUser() {
-        UserDetails result = authService.getCurrentUser();
-        return Res.renderJson(result, "OK", HttpStatus.ACCEPTED);
-    }
+//    @GetMapping("/me")
+//    public ResponseEntity<?> getCurrentUser() {
+//        UserDetails result = authService.getCurrentUser();
+//        return Res.renderJson(result, "OK", HttpStatus.ACCEPTED);
+//    }
 }

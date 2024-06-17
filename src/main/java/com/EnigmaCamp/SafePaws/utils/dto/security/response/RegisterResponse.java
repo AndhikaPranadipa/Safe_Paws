@@ -1,4 +1,4 @@
-package com.EnigmaCamp.SafePaws.utils.dto.response;
+package com.EnigmaCamp.SafePaws.utils.dto.security.response;
 
 import com.EnigmaCamp.SafePaws.entity.Shelter;
 import com.EnigmaCamp.SafePaws.entity.User;

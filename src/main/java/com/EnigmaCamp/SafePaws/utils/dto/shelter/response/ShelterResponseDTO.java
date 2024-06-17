@@ -1,4 +1,4 @@
-package com.EnigmaCamp.SafePaws.utils.dto.response;
+package com.EnigmaCamp.SafePaws.utils.dto.shelter.response;
 
 import com.EnigmaCamp.SafePaws.entity.*;
 import lombok.Builder;
@@ -8,6 +8,8 @@ import lombok.Data;
 @Builder
 public class ShelterResponseDTO {
 
+    private String id;
+
     private String name;
 
     private String email;
@@ -16,15 +18,13 @@ public class ShelterResponseDTO {
 
     private String description;
 
-    private City city;
-
-    public static ShelterResponseDTO fromUser(Shelter shelter, AddressShelter addressShelter){
+    public static ShelterResponseDTO fromUser(Shelter shelter){
         return ShelterResponseDTO.builder()
+                .id(shelter.getId())
                 .name(shelter.getName())
                 .email(shelter.getEmail())
                 .phone(shelter.getPhone())
                 .description(shelter.getDescription())
-                .city(addressShelter.getCity())
                 .build();
     }
 }

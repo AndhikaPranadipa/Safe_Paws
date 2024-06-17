@@ -25,7 +25,6 @@ public class Province {
     @JsonProperty("text")
     private String province;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "province", cascade = CascadeType.ALL)
     private List<City> cities;
 }

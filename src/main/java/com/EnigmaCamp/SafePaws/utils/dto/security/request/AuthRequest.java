@@ -1,8 +1,7 @@
-package com.EnigmaCamp.SafePaws.utils.dto.request;
+package com.EnigmaCamp.SafePaws.utils.dto.security.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
 
 @Getter

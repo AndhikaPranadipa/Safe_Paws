@@ -36,11 +36,9 @@ public class Shelter implements UserDetails {
 
     private String description;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
     private List<Animal> animalList;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "shelter", cascade = CascadeType.ALL)
     private List<AddressShelter> addressShelterList;
 

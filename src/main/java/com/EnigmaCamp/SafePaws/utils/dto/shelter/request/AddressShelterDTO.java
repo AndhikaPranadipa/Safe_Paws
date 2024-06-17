@@ -1,4 +1,4 @@
-package com.EnigmaCamp.SafePaws.utils.dto.request;
+package com.EnigmaCamp.SafePaws.utils.dto.shelter.request;
 
 import com.EnigmaCamp.SafePaws.entity.*;
 import jakarta.validation.constraints.NotBlank;

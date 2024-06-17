@@ -1,4 +1,4 @@
-package com.EnigmaCamp.SafePaws.utils.dto.request;
+package com.EnigmaCamp.SafePaws.utils.dto.user.request;
 
 import com.EnigmaCamp.SafePaws.entity.AddressUser;
 import com.EnigmaCamp.SafePaws.entity.City;
