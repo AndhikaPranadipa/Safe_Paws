@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "adoption")
@@ -21,7 +21,7 @@ public class Adoption {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private Date inspection_date;
+    private LocalDate inspection_date;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "adoption_status")
