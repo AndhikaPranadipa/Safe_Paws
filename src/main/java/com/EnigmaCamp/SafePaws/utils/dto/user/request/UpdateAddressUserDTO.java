@@ -4,13 +4,19 @@ import com.EnigmaCamp.SafePaws.entity.AddressUser;
 import com.EnigmaCamp.SafePaws.entity.City;
 import com.EnigmaCamp.SafePaws.entity.User;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class AddressUserDTO {
+public class UpdateAddressUserDTO {
+
+    @NotBlank
+    private String id;
 
     @NotBlank
     private String cityId;
