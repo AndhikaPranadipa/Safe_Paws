@@ -22,9 +22,9 @@ public class Animal {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    private String type;
+    private String species;
 
-    private String race;
+    private String breed;
 
     private String name;
 

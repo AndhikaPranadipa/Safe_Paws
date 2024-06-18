@@ -6,7 +6,7 @@ import com.EnigmaCamp.SafePaws.service.UserService;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
-import com.EnigmaCamp.SafePaws.utils.dto.DeleteAddressDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateAddressUserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateUserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.user.response.UserResponseDTO;
@@ -66,10 +66,18 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/address")
-    public ResponseEntity<?> delete(@RequestBody DeleteAddressDTO request) throws JsonProcessingException {
+    public ResponseEntity<?> delete(@RequestBody GenericIdRequest request) throws JsonProcessingException {
 
         addressUserService.delete(request);
 
         return Res.renderJson(null, "Address user deleted successfully", HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/animal")
+    public ResponseEntity<?> hello() {
+
+        String result = "hello";
+
+        return Res.renderJson(result, "Cek Animal", HttpStatus.CREATED);
     }
 }

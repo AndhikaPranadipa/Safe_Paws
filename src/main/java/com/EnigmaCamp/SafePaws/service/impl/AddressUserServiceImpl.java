@@ -13,7 +13,7 @@ import com.EnigmaCamp.SafePaws.service.AuthService;
 import com.EnigmaCamp.SafePaws.service.RestClientAddressService;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
-import com.EnigmaCamp.SafePaws.utils.dto.DeleteAddressDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateAddressUserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
@@ -108,7 +108,7 @@ public class AddressUserServiceImpl implements AddressUserService {
     }
 
     @Override
-    public void delete(DeleteAddressDTO request) {
+    public void delete(GenericIdRequest request) {
         UserDetails result = authService.getCurrentUser();
 
         User user = userRepository.findByEmail(result.getUsername())

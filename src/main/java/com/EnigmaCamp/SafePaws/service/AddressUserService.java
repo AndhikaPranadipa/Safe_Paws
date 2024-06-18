@@ -2,7 +2,7 @@ package com.EnigmaCamp.SafePaws.service;
 
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
-import com.EnigmaCamp.SafePaws.utils.dto.DeleteAddressDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateAddressUserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -14,6 +14,6 @@ public interface AddressUserService {
     List<AddressResponse> getAll();
 
     AddressResponse update(UpdateAddressUserDTO request);
-    void delete(DeleteAddressDTO request);
+    void delete(GenericIdRequest request);
 
 }

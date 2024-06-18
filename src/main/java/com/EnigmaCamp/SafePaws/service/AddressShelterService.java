@@ -1,8 +1,7 @@
 package com.EnigmaCamp.SafePaws.service;
 
-import com.EnigmaCamp.SafePaws.entity.AddressShelter;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
-import com.EnigmaCamp.SafePaws.utils.dto.DeleteAddressDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.AddressShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateAddressShelterDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -16,5 +15,5 @@ public interface AddressShelterService {
 
     AddressResponse update(UpdateAddressShelterDTO request);
 
-    void delete(DeleteAddressDTO request);
+    void delete(GenericIdRequest request);
 }

@@ -40,13 +40,13 @@ public class AnimalController {
         return Res.renderJson(result, "Cek Animal", HttpStatus.CREATED);
     }
 
-      private final AnimalService animalService;
+    private final AnimalService animalService;
 
-    @PostMapping
-    public ResponseEntity<?> createAnimal(@RequestBody AnimalRequest request) {
-        AnimalResponse response = AnimalResponse.response(animalService.create(request));
-        return Res.renderJson(response, "Data Created", HttpStatus.CREATED);
-    }
+//    @PostMapping
+//    public ResponseEntity<?> createAnimal(@RequestBody AnimalRequest request) {
+//        AnimalResponse response = AnimalResponse.response(animalService.create(request));
+//        return Res.renderJson(response, "Data Created", HttpStatus.CREATED);
+//    }
 
     @GetMapping(path = "/available")
     public ResponseEntity<?> getAnimalAvailable(
@@ -58,22 +58,22 @@ public class AnimalController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Animal> getById(@RequestParam String id) {
-        Animal response = animalService.getById(id);
-        return ResponseEntity.ok(response);
-    }
+//    @GetMapping("/{id}")
+//    public ResponseEntity<Animal> getById(@RequestParam String id) {
+//        Animal response = animalService.getById(id);
+//        return ResponseEntity.ok(response);
+//    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Animal> update(@PathVariable String id, @RequestBody AnimalRequest request) {
-        Animal animal = animalService.update(request, id);
-        return ResponseEntity.ok(animal);
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<Animal> update(@PathVariable String id, @RequestBody AnimalRequest request) {
+//        Animal animal = animalService.update(request, id);
+//        return ResponseEntity.ok(animal);
+//    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Animal> delete(@PathVariable String id) {
-        animalService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Animal> delete(@PathVariable String id) {
+//        animalService.delete(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
 }

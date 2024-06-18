@@ -9,7 +9,7 @@ import com.EnigmaCamp.SafePaws.service.AddressShelterService;
 import com.EnigmaCamp.SafePaws.service.AuthService;
 import com.EnigmaCamp.SafePaws.service.RestClientAddressService;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
-import com.EnigmaCamp.SafePaws.utils.dto.DeleteAddressDTO;
+import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.AddressShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateAddressShelterDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -104,7 +104,7 @@ public class AddressShelterServiceImpl implements AddressShelterService {
     }
 
     @Override
-    public void delete(DeleteAddressDTO request){
+    public void delete(GenericIdRequest request){
         UserDetails result = authService.getCurrentUser();
 
         Shelter shelter = shelterRepository.findByEmail(result.getUsername())
