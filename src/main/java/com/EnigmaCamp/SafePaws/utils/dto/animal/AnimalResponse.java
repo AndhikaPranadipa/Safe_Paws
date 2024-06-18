@@ -27,7 +27,7 @@ public class AnimalResponse {
 
     private Integer age;
 
-    private AnimalStatus status;
+    private AnimalStatus animalStatus;
 
     private String description;
 
@@ -41,7 +41,7 @@ public class AnimalResponse {
                     .breed(animal.getBreed())
                     .weight(animal.getWeight())
                     .age(animal.getAge())
-                    .status(animal.getAnimalStatus())
+                    .animalStatus(animal.getAnimalStatus())
                     .description(animal.getDescription())
                     .build();
     }

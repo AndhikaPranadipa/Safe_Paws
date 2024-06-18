@@ -21,7 +21,7 @@ public class AnimalRequest {
 
     private Integer age;
 
-    private AnimalStatus status;
+    private AnimalStatus animalStatus;
 
     private String description;
 
@@ -32,7 +32,7 @@ public class AnimalRequest {
                     .breed(breed)
                     .weight(weight)
                     .age(age)
-                    .animalStatus(status)
+                    .animalStatus(animalStatus)
                     .description(description)
                     .shelter(shelter)
                     .build();

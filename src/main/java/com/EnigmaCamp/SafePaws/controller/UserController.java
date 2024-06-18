@@ -1,10 +1,15 @@
 package com.EnigmaCamp.SafePaws.controller;
 
+import com.EnigmaCamp.SafePaws.entity.Animal;
 import com.EnigmaCamp.SafePaws.entity.User;
 import com.EnigmaCamp.SafePaws.service.AddressUserService;
+import com.EnigmaCamp.SafePaws.service.AnimalService;
 import com.EnigmaCamp.SafePaws.service.UserService;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
+import com.EnigmaCamp.SafePaws.utils.dto.PageResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
+import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalRequest;
+import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateAddressUserDTO;
@@ -12,6 +17,9 @@ import com.EnigmaCamp.SafePaws.utils.dto.user.request.UpdateUserDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.user.response.UserResponseDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,6 +36,8 @@ public class UserController {
     private final AddressUserService addressUserService;
 
     private final UserService userService;
+
+    private final AnimalService animalService;
 
     @GetMapping
     public ResponseEntity<?> getCurrentUser() {
@@ -74,10 +84,12 @@ public class UserController {
     }
 
     @GetMapping(path = "/animal")
-    public ResponseEntity<?> hello() {
+    public ResponseEntity<?> hello(
+            @PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.ASC) Pageable page,
+            @ModelAttribute AnimalRequest request
+    ) {
 
-        String result = "hello";
-
-        return Res.renderJson(result, "Cek Animal", HttpStatus.CREATED);
+        PageResponse<AnimalResponse> responses = new PageResponse<>(animalService.getAllByUser(page, request));
+        return Res.renderJson(responses, "Data Found", HttpStatus.OK);
     }
 }

@@ -3,6 +3,7 @@ package com.EnigmaCamp.SafePaws.utils.dto.animal;
 import com.EnigmaCamp.SafePaws.entity.Animal;
 import com.EnigmaCamp.SafePaws.entity.Shelter;
 import com.EnigmaCamp.SafePaws.utils.enums.AnimalStatus;
+import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,7 +24,7 @@ public class AnimalUpdateRequest {
 
     private Integer age;
 
-    private AnimalStatus status;
+    private AnimalStatus animalStatus;
 
     private String description;
 
@@ -36,7 +37,7 @@ public class AnimalUpdateRequest {
                 .breed(breed)
                 .weight(weight)
                 .age(age)
-                .animalStatus(status)
+                .animalStatus(animalStatus)
                 .description(description)
                 .shelter(shelter)
                 .build();

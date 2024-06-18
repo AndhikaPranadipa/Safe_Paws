@@ -16,6 +16,7 @@ import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateAddressShelterDTO
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.response.ShelterResponseDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -94,13 +95,13 @@ public class ShelterController {
     }
 
     @PostMapping(path = "/animal")
-    public ResponseEntity<?> createAnimal(@RequestBody AnimalRequest request) {
+    public ResponseEntity<?> createAnimal(@Valid @RequestBody AnimalRequest request) {
         AnimalResponse response = animalService.create(request);
         return Res.renderJson(response, "Animal Data Created", HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/animal")
-    public ResponseEntity<?> updateAnimal(@RequestBody AnimalUpdateRequest request) {
+    public ResponseEntity<?> updateAnimal(@Valid @RequestBody AnimalUpdateRequest request) {
         AnimalResponse response = animalService.update(request);
         return Res.renderJson(response, "Animal Data Edited", HttpStatus.OK);
     }

@@ -48,14 +48,14 @@ public class AnimalController {
 //        return Res.renderJson(response, "Data Created", HttpStatus.CREATED);
 //    }
 
-    @GetMapping(path = "/available")
-    public ResponseEntity<?> getAnimalAvailable(
-            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable page,
-            @ModelAttribute AnimalRequest request
-    ) {
-        PageResponse<Animal> responses = new PageResponse<>(animalService.getAllStatusAvailable(page, request));
-        return Res.renderJson(responses, "Data Found", HttpStatus.OK);
-    }
+//    @GetMapping(path = "/available")
+//    public ResponseEntity<?> getAnimalAvailable(
+//            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable page,
+//            @ModelAttribute AnimalRequest request
+//    ) {
+//        PageResponse<Animal> responses = new PageResponse<>(animalService.getAllStatusAvailable(page, request));
+//        return Res.renderJson(responses, "Data Found", HttpStatus.OK);
+//    }
 
 
 //    @GetMapping("/{id}")

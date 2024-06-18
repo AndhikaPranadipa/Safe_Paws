@@ -11,8 +11,8 @@ import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalRequest;
 
 public interface AnimalService {
     AnimalResponse create(AnimalRequest request);
-    public Page<AnimalResponse> getAllByShelter(Pageable pageable, AnimalRequest request);
-    Page<Animal> getAllStatusAvailable(Pageable pageable, AnimalRequest request);
+    Page<AnimalResponse> getAllByShelter(Pageable pageable, AnimalRequest request);
+    Page<AnimalResponse> getAllByUser(Pageable pageable, AnimalRequest request);
     AnimalResponse getById(GenericIdRequest request);
     AnimalResponse update(AnimalUpdateRequest request);
     void delete(GenericIdRequest request);

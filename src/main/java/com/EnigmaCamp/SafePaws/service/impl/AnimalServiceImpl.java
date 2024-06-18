@@ -49,12 +49,22 @@ public class AnimalServiceImpl implements AnimalService {
         return AnimalResponse.response(animal, shelter);
     }
     @Override
-    public Page<Animal> getAllStatusAvailable(Pageable pageable, AnimalRequest request) {
+    public Page<AnimalResponse> getAllByUser(Pageable pageable, AnimalRequest request) {
 
-        request.setStatus(AnimalStatus.AVAILABLE);
+        request.setAnimalStatus(AnimalStatus.AVAILABLE);
 
         Specification<Animal> specification = GeneralSpecification.getSpecification(request);
-        return animalRepository.findAll(specification, pageable);
+        Page<Animal> animals = animalRepository.findAll(specification, pageable);
+
+        List<AnimalResponse> responseList = animals.stream()
+                .map(animal -> {
+                    Shelter shelter = shelterRepository.findById(animal.getShelter().getId())
+                            .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shelter Not Found"));
+                    return AnimalResponse.response(animal, shelter);
+                })
+                .collect(Collectors.toList());
+
+        return new PageImpl<>(responseList, pageable, animals.getTotalElements());
     }
 
     @Override
@@ -99,7 +109,7 @@ public class AnimalServiceImpl implements AnimalService {
         animal.setBreed(request.getBreed());
         animal.setAge(request.getAge());
         animal.setWeight(request.getWeight());
-        animal.setAnimalStatus(request.getStatus());
+        animal.setAnimalStatus(request.getAnimalStatus());
         animal.setDescription(request.getDescription());
 
         animalRepository.saveAndFlush(animal);
