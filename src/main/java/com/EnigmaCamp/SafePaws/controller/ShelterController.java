@@ -11,6 +11,7 @@ import com.EnigmaCamp.SafePaws.utils.dto.Res;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalUpdateRequest;
+import com.EnigmaCamp.SafePaws.utils.dto.animal.GetAnimalRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.AddressShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateAddressShelterDTO;
 import com.EnigmaCamp.SafePaws.utils.dto.shelter.request.UpdateShelterDTO;
@@ -88,7 +89,7 @@ public class ShelterController {
     @GetMapping(path = "/animal")
     public ResponseEntity<?> getAnimalByShelter(
             @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable page,
-            @ModelAttribute AnimalRequest request
+            @ModelAttribute GetAnimalRequest request
     ) {
         PageResponse<AnimalResponse> responses = new PageResponse<>(animalService.getAllByShelter(page,request));
         return Res.renderJson(responses, "Animal Data Found", HttpStatus.OK);

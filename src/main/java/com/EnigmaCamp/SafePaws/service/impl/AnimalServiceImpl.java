@@ -4,6 +4,7 @@ import com.EnigmaCamp.SafePaws.service.AuthService;
 import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalUpdateRequest;
+import com.EnigmaCamp.SafePaws.utils.dto.animal.GetAnimalRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -68,15 +69,17 @@ public class AnimalServiceImpl implements AnimalService {
     }
 
     @Override
-    public Page<AnimalResponse> getAllByShelter(Pageable pageable, AnimalRequest request) {
-
-        Specification<Animal> specification = GeneralSpecification.getSpecification(request);
-        Page<Animal> animals = animalRepository.findAll(specification, pageable);
+    public Page<AnimalResponse> getAllByShelter(Pageable pageable, GetAnimalRequest request) {
 
         UserDetails result = authService.getCurrentUser();
 
         Shelter shelter =  shelterRepository.findByEmail(result.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found"));
+
+        request.setShelter(shelter);
+
+        Specification<Animal> specification = GeneralSpecification.getSpecification(request);
+        Page<Animal> animals = animalRepository.findAll(specification, pageable);
 
         List<AnimalResponse> responseList = animals.stream()
                 .map(animal -> AnimalResponse.response(animal,shelter))
