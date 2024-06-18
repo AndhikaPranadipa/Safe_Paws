@@ -6,7 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import com.EnigmaCamp.SafePaws.entity.Animal;
 
+import java.util.List;
+
 @Repository
 public interface AnimalRepository extends JpaRepository<Animal, String>, JpaSpecificationExecutor<Animal> {
 
+    List<Animal> findAllByShelterId(String id);
 }
+

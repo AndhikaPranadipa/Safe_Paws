@@ -8,5 +8,4 @@ import lombok.*;
 public class AdoptionRequest {
     
     private String animalId;
-    private String userId;
 }

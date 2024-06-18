@@ -1,5 +1,7 @@
 package com.EnigmaCamp.SafePaws.controller;
 
+import com.EnigmaCamp.SafePaws.utils.dto.adoption.AdoptionResponse;
+import com.EnigmaCamp.SafePaws.utils.dto.adoption.UserAdoptionResponse;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -34,28 +36,28 @@ public class AdoptionController {
 
     @PostMapping
     public ResponseEntity<?> createAdoption(@RequestBody AdoptionRequest request) {
-        Adoption response = adoptionService.createAdoption(request.getUserId(), request.getAnimalId());
+        UserAdoptionResponse response = adoptionService.createAdoption(request);
         return Res.renderJson(response, "Data created", HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<?> index(
-        @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable page,
-        @ModelAttribute Adoption request
-    ) {
-        PageResponse<Adoption> responses = new PageResponse<>(adoptionService.getAllAdoption(page, request));
-        return Res.renderJson(responses, "Data retrieved", HttpStatus.OK);
-    }
+//    @GetMapping
+//    public ResponseEntity<?> index(
+//        @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable page,
+//        @ModelAttribute Adoption request
+//    ) {
+//        PageResponse<Adoption> responses = new PageResponse<>(adoptionService.getAllAdoption(page, request));
+//        return Res.renderJson(responses, "Data retrieved", HttpStatus.OK);
+//    }
 
-    @PutMapping("/{adoptionId}")
-    public ResponseEntity<?> updateAdoption(@PathVariable String adoptionId, @RequestParam AdoptionStatus status) {
-        Adoption response = adoptionService.updateAdoption(adoptionId, status);
-        return Res.renderJson(response, "Data updated", HttpStatus.OK);
-    }
+//    @PutMapping("/{adoptionId}")
+//    public ResponseEntity<?> updateAdoption(@PathVariable String adoptionId, @RequestParam AdoptionStatus status) {
+//        Adoption response = adoptionService.updateAdoption(adoptionId, status);
+//        return Res.renderJson(response, "Data updated", HttpStatus.OK);
+//    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable String id) {
-        adoptionService.delete(id);
-        return ResponseEntity.noContent().build();
-    }
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<?> delete(@PathVariable String id) {
+//        adoptionService.delete(id);
+//        return ResponseEntity.noContent().build();
+//    }
 }

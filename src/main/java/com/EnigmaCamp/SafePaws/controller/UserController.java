@@ -1,13 +1,18 @@
 package com.EnigmaCamp.SafePaws.controller;
 
+import com.EnigmaCamp.SafePaws.entity.Adoption;
 import com.EnigmaCamp.SafePaws.entity.Animal;
 import com.EnigmaCamp.SafePaws.entity.User;
 import com.EnigmaCamp.SafePaws.service.AddressUserService;
+import com.EnigmaCamp.SafePaws.service.AdoptionService;
 import com.EnigmaCamp.SafePaws.service.AnimalService;
 import com.EnigmaCamp.SafePaws.service.UserService;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.PageResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
+import com.EnigmaCamp.SafePaws.utils.dto.adoption.AdoptionRequest;
+import com.EnigmaCamp.SafePaws.utils.dto.adoption.AdoptionResponse;
+import com.EnigmaCamp.SafePaws.utils.dto.adoption.UserAdoptionResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.user.request.AddressUserDTO;
@@ -39,10 +44,12 @@ public class UserController {
 
     private final AnimalService animalService;
 
+    private final AdoptionService adoptionService;
+
     @GetMapping
     public ResponseEntity<?> getCurrentUser() {
         User user = userService.getByJWT();
-        return Res.renderJson(UserResponseDTO.fromUser(user), "OK", HttpStatus.ACCEPTED);
+        return Res.renderJson(UserResponseDTO.fromUser(user), "Accepted", HttpStatus.ACCEPTED);
     }
 
     @PutMapping
@@ -56,7 +63,7 @@ public class UserController {
 
         List<AddressResponse> result = addressUserService.getAll();
 
-        return Res.renderJson(result, "Success get all address data", HttpStatus.OK);
+        return Res.renderJson(result, "OK", HttpStatus.OK);
     }
 
     @PostMapping(path = "/address")
@@ -68,7 +75,7 @@ public class UserController {
     }
 
     @PutMapping(path = "/address")
-    public ResponseEntity<?> putAddress(@RequestBody UpdateAddressUserDTO request) throws JsonProcessingException {
+    public ResponseEntity<?> putAddress(@RequestBody UpdateAddressUserDTO request) {
 
         AddressResponse result = addressUserService.update(request);
 
@@ -76,7 +83,7 @@ public class UserController {
     }
 
     @DeleteMapping(path = "/address")
-    public ResponseEntity<?> delete(@RequestBody GenericIdRequest request) throws JsonProcessingException {
+    public ResponseEntity<?> deleteAnimal(@RequestBody GenericIdRequest request) {
 
         addressUserService.delete(request);
 
@@ -84,12 +91,36 @@ public class UserController {
     }
 
     @GetMapping(path = "/animal")
-    public ResponseEntity<?> hello(
+    public ResponseEntity<?> getAnimal(
             @PageableDefault(page = 0, size = 10, sort = "name", direction = Sort.Direction.ASC) Pageable page,
             @ModelAttribute AnimalRequest request
     ) {
 
         PageResponse<AnimalResponse> responses = new PageResponse<>(animalService.getAllByUser(page, request));
-        return Res.renderJson(responses, "Data Found", HttpStatus.OK);
+        return Res.renderJson(responses, "OK", HttpStatus.OK);
+    }
+
+    @PostMapping(path = "/adoption")
+    public ResponseEntity<?> createAdoption(@RequestBody AdoptionRequest request) {
+        UserAdoptionResponse response = adoptionService.createAdoption(request);
+        return Res.renderJson(response, "Data created", HttpStatus.CREATED);
+    }
+
+    @GetMapping(path = "/adoption")
+    public ResponseEntity<?> getAdoption(
+            @PageableDefault(page = 0, size = 10, sort = "inspectionDate", direction = Sort.Direction.ASC) Pageable page,
+            @ModelAttribute Adoption request
+    ) {
+
+        PageResponse<UserAdoptionResponse> responses = new PageResponse<>(adoptionService.getAllByUser(page, request));
+        return Res.renderJson(responses, "OK", HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/adoption")
+    public ResponseEntity<?> deleteAdoption(@RequestBody GenericIdRequest request){
+
+        adoptionService.delete(request);
+
+        return Res.renderJson(null, "Adoption Data Deleted", HttpStatus.OK);
     }
 }

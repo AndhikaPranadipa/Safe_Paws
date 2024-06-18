@@ -1,13 +1,17 @@
 package com.EnigmaCamp.SafePaws.controller;
 
+import com.EnigmaCamp.SafePaws.entity.Adoption;
 import com.EnigmaCamp.SafePaws.entity.Shelter;
 import com.EnigmaCamp.SafePaws.service.AddressShelterService;
+import com.EnigmaCamp.SafePaws.service.AdoptionService;
 import com.EnigmaCamp.SafePaws.service.AnimalService;
 import com.EnigmaCamp.SafePaws.service.ShelterService;
 import com.EnigmaCamp.SafePaws.utils.dto.AddressResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.GenericIdRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.PageResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.Res;
+import com.EnigmaCamp.SafePaws.utils.dto.adoption.AdoptionResponse;
+import com.EnigmaCamp.SafePaws.utils.dto.adoption.UpdateAdoptionRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalRequest;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalResponse;
 import com.EnigmaCamp.SafePaws.utils.dto.animal.AnimalUpdateRequest;
@@ -41,6 +45,8 @@ public class ShelterController {
 
     private final AnimalService animalService;
 
+    private final AdoptionService adoptionService;
+
     @GetMapping
     public ResponseEntity<?> getCurrentUser() {
         Shelter shelter = shelterService.getByJWT();
@@ -55,7 +61,7 @@ public class ShelterController {
 
 
     @GetMapping(path = "/address")
-    public ResponseEntity<?> setAddress(){
+    public ResponseEntity<?> getAddress(){
 
         List<AddressResponse> result = addressShelterService.getAll();
 
@@ -63,7 +69,7 @@ public class ShelterController {
     }
 
     @PostMapping(path = "/address")
-    public ResponseEntity<?> setAddress(@RequestBody AddressShelterDTO request) throws JsonProcessingException {
+    public ResponseEntity<?> createAddress(@RequestBody AddressShelterDTO request) throws JsonProcessingException {
 
         AddressResponse result = addressShelterService.create(request);
 
@@ -71,7 +77,7 @@ public class ShelterController {
     }
 
     @PutMapping(path = "/address")
-    public ResponseEntity<?> putAddress(@RequestBody UpdateAddressShelterDTO request) throws JsonProcessingException {
+    public ResponseEntity<?> putAddress(@RequestBody UpdateAddressShelterDTO request){
 
         AddressResponse result = addressShelterService.update(request);
 
@@ -96,22 +102,44 @@ public class ShelterController {
     }
 
     @PostMapping(path = "/animal")
-    public ResponseEntity<?> createAnimal(@Valid @RequestBody AnimalRequest request) {
+    public ResponseEntity<?> createAnimal(@RequestBody AnimalRequest request) {
         AnimalResponse response = animalService.create(request);
         return Res.renderJson(response, "Animal Data Created", HttpStatus.CREATED);
     }
 
     @PutMapping(path = "/animal")
-    public ResponseEntity<?> updateAnimal(@Valid @RequestBody AnimalUpdateRequest request) {
+    public ResponseEntity<?> updateAnimal(@RequestBody AnimalUpdateRequest request) {
         AnimalResponse response = animalService.update(request);
         return Res.renderJson(response, "Animal Data Edited", HttpStatus.OK);
     }
 
     @DeleteMapping(path = "/animal")
-    public ResponseEntity<?> deleteAnimal(@RequestBody GenericIdRequest request) throws JsonProcessingException {
+    public ResponseEntity<?> deleteAnimal(@RequestBody GenericIdRequest request){
 
         animalService.delete(request);
 
         return Res.renderJson(null, "Animal Data Deleted", HttpStatus.OK);
+    }
+
+    @GetMapping(path = "/adoption")
+    public ResponseEntity<?> getAdoption(
+            @PageableDefault(page = 0, size = 10, sort = "inspectionDate", direction = Sort.Direction.ASC) Pageable page,
+            @ModelAttribute Adoption request
+    ) {
+
+        PageResponse<AdoptionResponse> responses = new PageResponse<>(adoptionService.getAllByShelter(page, request));
+        return Res.renderJson(responses, "OK", HttpStatus.OK);
+    }
+
+    @PutMapping(path = "/adoption")
+    public ResponseEntity<?> updateAdoption(@RequestBody UpdateAdoptionRequest request) {
+        AdoptionResponse response = adoptionService.updateAdoption(request);
+        return Res.renderJson(response, "Adoption Data Edited", HttpStatus.OK);
+    }
+
+    @DeleteMapping(path = "/adoption")
+    public ResponseEntity<?> deleteAdoption(@RequestBody GenericIdRequest request){
+        adoptionService.delete(request);
+        return Res.renderJson(null, "Adoption Data Deleted", HttpStatus.OK);
     }
 }

@@ -63,7 +63,7 @@ public class AnimalServiceImpl implements AnimalService {
                             .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Shelter Not Found"));
                     return AnimalResponse.response(animal, shelter);
                 })
-                .collect(Collectors.toList());
+                .toList();
 
         return new PageImpl<>(responseList, pageable, animals.getTotalElements());
     }
