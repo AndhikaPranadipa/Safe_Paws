@@ -17,7 +17,6 @@ public class UpdateShelterDTO {
     @NotBlank
     private String name;
 
-    @NotBlank
     private String password;
 
     private String phone;

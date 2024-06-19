@@ -34,7 +34,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public User updateUser(UpdateUserDTO request) {
 
-        User user = userRepository.findById(request.getId())
+        UserDetails result = authService.getCurrentUser();
+
+        User user = userRepository.findByEmail(result.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found"));
 
         request.setPassword(passwordEncoder.encode(request.getPassword()));

@@ -31,9 +31,11 @@ public class ShelterServiceImpl implements ShelterService {
     }
 
     @Override
-    public Shelter updateShelter(UpdateShelterDTO request) {
+    public Shelter updateShelter(UpdateShelterDTO request)
+    {
+        UserDetails result = authService.getCurrentUser();
 
-        Shelter shelter = shelterRepository.findById(request.getId())
+        Shelter shelter = shelterRepository.findByEmail(result.getUsername())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User Not Found"));
 
         request.setPassword(passwordEncoder.encode(request.getPassword()));

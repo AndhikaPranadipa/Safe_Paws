@@ -17,7 +17,6 @@ public class UpdateUserDTO {
     @NotBlank
     private String fullName;
 
-    @NotBlank
     private String password;
 
     private String phone;
